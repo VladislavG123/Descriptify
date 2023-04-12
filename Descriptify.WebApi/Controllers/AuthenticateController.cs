@@ -18,21 +18,35 @@ public class AuthenticateController : ControllerBase
     [HttpPost("api/user/signup")]
     public async Task<IActionResult> SignUp([FromBody] UserSignUpViewModel viewModel)
     {
-        return Ok(await _authenticateService.SignUp(new UserSignUpDto
+        try
         {
-            Login = viewModel.Login,
-            Password = viewModel.Password,
-            Username = viewModel.Username
-        }));
+            return Ok(await _authenticateService.SignUp(new UserSignUpDto
+            {
+                Login = viewModel.Login,
+                Password = viewModel.Password,
+                Username = viewModel.Username
+            }));
+        }
+        catch (ArgumentException)
+        {
+            return BadRequest("User with the same login is already exists");
+        }
     }
     
     [HttpPost("api/user/signin")]
-    public async Task<IActionResult> SignIp([FromBody] UserSignInViewModel viewModel)
+    public async Task<IActionResult> SignIn([FromBody] UserSignInViewModel viewModel)
     {
-        return Ok(await _authenticateService.SignIn(new UserSignInDto
+        try
         {
-            Login = viewModel.Login,
-            Password = viewModel.Password
-        }));
+            return Ok(await _authenticateService.SignIn(new UserSignInDto
+            {
+                Login = viewModel.Login,
+                Password = viewModel.Password
+            }));
+        }
+        catch (ArgumentException)
+        {
+            return BadRequest("Wrong login or password");
+        }
     }
 }
