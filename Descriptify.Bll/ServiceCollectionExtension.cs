@@ -5,6 +5,8 @@ namespace Descriptify.Bll;
 
 public static class ServiceCollectionExtension
 {
-    public static IServiceCollection AddBusinessLoginLayout(this IServiceCollection serviceCollection)
-        => serviceCollection.AddScoped<IAuthenticateService, AuthenticateService>();
+    public static IServiceCollection AddBusinessLoginLayout(this IServiceCollection serviceCollection) =>
+        serviceCollection
+            .AddScoped<IAuthenticateService, AuthenticateService>()
+            .AddScoped<IUserService, UserService>();
 }

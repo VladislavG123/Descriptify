@@ -14,11 +14,13 @@ namespace Descriptify.Bll;
 public class AuthenticateService : IAuthenticateService
 {
     private readonly IUserProvider _userProvider;
+    private readonly IUserService _userService;
     private readonly SecretOptions _secretOptions;
 
-    public AuthenticateService(IUserProvider userProvider, IOptions<SecretOptions> secretOptions)
+    public AuthenticateService(IUserProvider userProvider, IOptions<SecretOptions> secretOptions, IUserService userService)
     {
         _userProvider = userProvider;
+        _userService = userService;
         _secretOptions = secretOptions.Value;
     }
     
@@ -57,8 +59,8 @@ public class AuthenticateService : IAuthenticateService
         {
             Subject = new ClaimsIdentity(new[]
             {
-                new Claim(ClaimTypes.Name, username),
-                new Claim(ClaimTypes.NameIdentifier, login)
+                new Claim(ClaimTypes.NameIdentifier, login),
+                new Claim(ClaimTypes.Name, username)
             }),
             Expires = DateTime.UtcNow.AddDays(1),
             SigningCredentials = new SigningCredentials(
@@ -69,5 +71,34 @@ public class AuthenticateService : IAuthenticateService
         var tokenHandler = new JwtSecurityTokenHandler();
         var securityToken = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(securityToken);
+    }
+    
+    /// <inheritdoc /> 
+    public async Task<UserDto> GetUserByHeaders(string[] headers)
+    {
+        var token = headers[0].Replace("Bearer ", "");
+        var login = DecryptToken(token).Login;
+
+        return await _userService.GetUserByLogin(login);
+    }
+    
+    /// <summary>
+    ///    Token decryption
+    /// </summary>
+    /// <param name="token"></param>
+    /// <exception cref="ArgumentException">throws when could not parse claims</exception>
+    /// <returns>Owner's data</returns>
+    private (string Login, string Username) DecryptToken(string token)
+    {
+        var handler = new JwtSecurityTokenHandler();
+
+        var tokenS = handler.ReadToken(token) as JwtSecurityToken;
+
+        if (tokenS?.Claims is List<Claim> claims)
+        {
+            return new ValueTuple<string, string>(claims[0].Value, claims[1].Value);
+        }
+
+        throw new ArgumentException();
     }
 }
