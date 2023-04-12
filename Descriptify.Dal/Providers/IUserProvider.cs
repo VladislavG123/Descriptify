@@ -5,5 +5,5 @@ namespace Descriptify.Dal.Providers;
 
 public interface IUserProvider : ICrudProvider<UserEntity>
 {
-    public Task<UserEntity> GetByLogin(string login);
+    public Task<UserEntity?> GetByLoginOrDefault(string login);
 }

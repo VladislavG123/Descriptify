@@ -8,6 +8,6 @@ public class UserEfProvider : BaseEfProvider<UserEntity>, IUserProvider
     {
     }
 
-    public async Task<UserEntity> GetByLogin(string login)
-        => await GetByPredicate(x => x.Login.Equals(login));
+    public async Task<UserEntity?> GetByLoginOrDefault(string login)
+        => await GetByPredicateOrDefault(x => x.Login.Equals(login));
 }

@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Descriptify.Bll", "Descript
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Descriptify.Dal", "Descriptify.Dal\Descriptify.Dal.csproj", "{F2659F24-122E-4A51-AE77-49874BBBACB3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Descriptify.Contracts", "Descriptify.Contracts\Descriptify.Contracts.csproj", "{708FE162-070D-4CB1-A0A0-72C5F09156EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{F2659F24-122E-4A51-AE77-49874BBBACB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2659F24-122E-4A51-AE77-49874BBBACB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2659F24-122E-4A51-AE77-49874BBBACB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{708FE162-070D-4CB1-A0A0-72C5F09156EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{708FE162-070D-4CB1-A0A0-72C5F09156EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{708FE162-070D-4CB1-A0A0-72C5F09156EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{708FE162-070D-4CB1-A0A0-72C5F09156EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

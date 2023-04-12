@@ -1,6 +1,18 @@
+using Descriptify.Bll;
+using Descriptify.Contracts.Options;
+using Descriptify.Dal;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddBusinessLoginLayout();
+builder.Services.AddDataAccessLayout();
+
+builder.Services.Configure<SecretOptions>(builder.Configuration.GetSection("SecretOptions"));
+
+builder.Services.AddDbContext<ApplicationContext>(x => 
+    x.UseInMemoryDatabase(builder.Configuration.GetConnectionString("InMemory")!));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
