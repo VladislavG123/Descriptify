@@ -1,4 +1,3 @@
-using Descriptify.Bll;
 using Descriptify.Bll.Abstract;
 using Descriptify.Bll.Dtos;
 using Descriptify.ViewModels;
@@ -11,12 +10,10 @@ namespace Descriptify.Controllers;
 public class AuthenticateController : ControllerBase
 {
     private readonly IAuthenticateService _authenticateService;
-    private readonly IUserService _userService;
 
-    public AuthenticateController(IAuthenticateService authenticateService, IUserService userService)
+    public AuthenticateController(IAuthenticateService authenticateService)
     {
         _authenticateService = authenticateService;
-        _userService = userService;
     }
     
     [HttpPost("api/auth/signup")]
@@ -54,7 +51,7 @@ public class AuthenticateController : ControllerBase
         {
             return Ok(await _authenticateService.GetUserByHeaders(Request.Headers[HeaderNames.Authorization]!));
         }
-        catch (ArgumentException e)
+        catch (ArgumentException)
         {
             return NotFound("User is not found, wrong token");
         }
