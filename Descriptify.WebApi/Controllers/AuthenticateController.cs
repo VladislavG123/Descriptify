@@ -2,6 +2,7 @@ using Descriptify.Bll;
 using Descriptify.Bll.Abstract;
 using Descriptify.Bll.Dtos;
 using Descriptify.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 
@@ -45,6 +46,7 @@ public class AuthenticateController : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpGet("api/auth/")]
     public async Task<IActionResult> GetCurrentUser()
     {
