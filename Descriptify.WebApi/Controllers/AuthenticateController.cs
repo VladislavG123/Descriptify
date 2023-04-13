@@ -44,7 +44,7 @@ public class AuthenticateController : ControllerBase
     }
 
     [Authorize]
-    [HttpGet("api/auth/")]
+    [HttpGet("api/auth")]
     public async Task<IActionResult> GetCurrentUser()
     {
         try

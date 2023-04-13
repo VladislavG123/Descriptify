@@ -1,4 +1,5 @@
 using System.Text;
+using Descriptify;
 using Descriptify.Bll;
 using Descriptify.Contracts.Options;
 using Descriptify.Dal;
@@ -19,7 +20,7 @@ builder.Services.AddDbContext<ApplicationContext>(x =>
 
 #region Jwt Configuration
 
-var secrets = builder.Configuration.GetSection("Secrets");
+var secrets = builder.Configuration.GetSection("SecretOptions");
 
 var key = Encoding.ASCII.GetBytes(secrets.GetValue<string>("JWTSecret")!);
 builder.Services.AddAuthentication(x =>
@@ -40,6 +41,8 @@ builder.Services.AddAuthentication(x =>
 });
 
 #endregion
+
+ConfigureServicesSwagger.ConfigureServices(builder.Services);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

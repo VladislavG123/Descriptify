@@ -11,6 +11,7 @@ public class ApplicationContext : DbContext
     }
 
     public DbSet<UserEntity> Users { get; set; }
+    public DbSet<CategoryEntity> Categories { get; set; }
 
     public override int SaveChanges()
     {
@@ -31,5 +32,6 @@ public class ApplicationContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<UserEntity>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<CategoryEntity>().HasQueryFilter(x => !x.IsDeleted);
     }
 }
